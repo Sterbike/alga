@@ -1,0 +1,197 @@
+/* Globális stílusok és alap beállítások (Az előző kódból) */
+:root {
+    --bg-color: #f4f7f6; /* Világos háttér */
+    --primary-color: #3498db; /* Kék hangsúlyos szín */
+    --text-color: #2c3e50; /* Sötét szövegszín */
+    --card-bg: #ffffff; /* Fehér kártya háttér */
+    --code-bg: #282c34; /* Sötét kódablak háttér (Monokai/VS Code sötét) */
+    --code-text: #abb2bf; /* Világos kód szöveg */
+    --border-radius: 12px;
+    --shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+
+    /* ÚJ Típus Színek */
+    --type-dp-color: #e74c3c; /* Piros a DP-hez */
+    --type-web-color: #2ecc71; /* Zöld a Web-hez */
+    --type-db-color: #f39c12; /* Narancs az Adatbázishoz */
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    padding: 20px;
+}
+
+.header {
+    text-align: center;
+    padding: 40px 20px;
+    margin-bottom: 30px;
+}
+
+.header h1 {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    margin-bottom: 10px;
+}
+
+.header p {
+    font-size: 1.1rem;
+    color: #7f8c8d;
+}
+
+/* MÓDOSÍTÁS: A kártyák egy oszlopban jelennek meg, középre igazítva */
+.showcase-grid {
+    display: flex;
+    flex-direction: column; /* Egymás alá sorolás */
+    gap: 30px;
+    width: 80%;
+    margin: 0 auto;
+}
+
+/* Kód Kártya Stílusok (maradt) */
+.code-card {
+    background-color: var(--card-bg);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease-in-out;
+}
+
+.code-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+}
+
+/* ÚJ: Fejléc a címmel és a típussal egy sorban */
+.card-header-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.card-title {
+    font-size: 1.4rem;
+    color: var(--text-color);
+    font-weight: 600;
+}
+
+/* ÚJ: Típus/Nehézség mező stílusa */
+.card-type {
+    font-size: 0.9rem;
+    font-weight: 700;
+    padding: 5px 10px;
+    border-radius: 4px;
+    color: var(--card-bg); /* Fehér szöveg a jelvényen */
+    text-transform: uppercase;
+}
+
+/* Típusspecifikus háttérszínek */
+.type-dp {
+    background-color: var(--type-dp-color); /* Dinamikus Programozás */
+}
+
+.type-web {
+    background-color: var(--type-web-color); /* Webfejlesztés */
+}
+
+.type-db {
+    background-color: var(--type-db-color); /* Adatbázis */
+}
+
+
+/* ... A többi stílus változatlan az előző válaszból ... */
+
+.code-editor {
+    background-color: var(--code-bg);
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 20px;
+    flex-grow: 1;
+}
+
+.editor-header {
+    background-color: #21252b;
+    padding: 10px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+.file-name {
+    color: #95a5a6;
+    font-size: 0.9rem;
+}
+
+.traffic-lights {
+    display: flex;
+    gap: 7px;
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
+
+.red { background-color: #e74c3c; }
+.yellow { background-color: #f39c12; }
+.green { background-color: #2ecc71; }
+
+.code-content {
+    padding: 15px;
+    overflow-x: auto;
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+    font-size: 0.9rem;
+    color: var(--code-text);
+    white-space: pre;
+}
+
+/* PDF Gomb Stílusok */
+.pdf-button {
+    display: inline-block;
+    background-color: var(--primary-color);
+    color: var(--card-bg);
+    text-decoration: none;
+    padding: 12px 20px;
+    border-radius: 6px;
+    font-weight: 600;
+    text-align: center;
+    transition: background-color 0.3s ease, transform 0.1s;
+    margin-top: auto;
+    border: none;
+    cursor: pointer;
+}
+
+.pdf-button:hover {
+    background-color: #2980b9;
+    transform: translateY(-2px);
+}
+
+/* Reszponzivitás */
+@media (max-width: 900px) {
+    body {
+        padding: 10px;
+    }
+
+    .header {
+        padding: 20px 10px;
+    }
+
+    .card-header-flex {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+}
