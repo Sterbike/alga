@@ -88,81 +88,11 @@ print(*(elfogadott_fogadok))
         </div>
 
     </div>
-    <div class="code-card">
-        <div class="card-header-flex">
-            <h2 class="card-title">Malacpersely</h2>
-            <a href="link_a_feladat_pdf-hez_1.pdf" target="_blank" class="pdf-button">
-                Feladat Leírás (PDF)
-            </a>
-            <span class="card-type type-dp">Típus: Dinamikus Programozás</span>
-        </div>
-        <div class="code-editor">
-            <div class="editor-header">
-                <span class="file-name">Dinamikus_malacpersely.py</span>
-                <div class="traffic-lights">
-                    <span class="dot red"></span>
-                    <span class="dot yellow"></span>
-                    <span class="dot green"></span>
-                </div>
-            </div>
-            <pre class="code-content"><code class="language-python">
-import sys
-
-try:
-    elso_sor = sys.stdin.readline().split()
-    if not elso_sor:
-        exit()
-
-    N, K = map(int, elso_sor)
-
-    masodik_sor = sys.stdin.readline().split()
-    if not masodik_sor:
-        exit()
-
-    fizetesi_osszegek = [0] + list(map(int, masodik_sor))
-
-except Exception as e:
-    exit()
-
-INF = float('inf')
-DP = [INF] * (N + 1)
-PREV = [0] * (N + 1)
-DP[1] = fizetesi_osszegek[1]
-PREV[1] = 0
-
-for i in range(2, N + 1):
-    min_elso_resz = INF
-    legjobb_elozo_fogado = -1
-    kezdo_index = max(1, i - K)
-
-    for j in range(kezdo_index, i):
-        if DP[j] < min_elso_resz:
-            min_elso_resz = DP[j]
-            legjobb_elozo_fogado = j
-
-    if min_elso_resz != INF:
-        DP[i] = min_elso_resz + fizetesi_osszegek[i]
-        PREV[i] = legjobb_elozo_fogado
-
-minimalis_fizetendo = DP[N]
-elfogadott_fogadok = []
-aktualis_fogado = N
-
-while aktualis_fogado > 0:
-    elfogadott_fogadok.append(aktualis_fogado)
-    aktualis_fogado = PREV[aktualis_fogado]
-
-elfogadott_fogadok.reverse()
-
-print(minimalis_fizetendo)
-print(*(elfogadott_fogadok))
-</code></pre>
-        </div>
-
-    </div>
+    
 
 
 </main>
 
 </body>
+
 </html>
