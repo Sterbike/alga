@@ -229,6 +229,47 @@ body {
     font-weight: 600;
 }
 
+.example-input {
+    margin-top: 25px;
+    padding: 15px;
+    background-color: #f0f4f7; /* Nagyon világos szürke/kék háttér */
+    border: 1px solid #dcdde1;
+    border-radius: 8px;
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+    font-size: 0.9rem;
+    color: var(--text-color);
+    white-space: pre-wrap; /* Sortörés engedélyezése */
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.example-input h5 {
+    font-size: 0.95rem;
+    color: var(--primary-color);
+    margin-bottom: 8px;
+    font-weight: 700;
+}
+
+.example-input pre {
+    margin: 0;
+    padding: 0;
+    color: #34495e; /* Sötétebb szöveg */
+}
+
+/* Külön stílus a kód alatt lévő inputnak */
+.code-section .example-input {
+    background-color: #2c313a; /* Sötétebb háttér a kód szekcióban */
+    color: var(--code-text);
+    border: none;
+}
+
+.code-section .example-input h5 {
+    color: #61afef; /* Világosabb kék címszín */
+}
+
+.code-section .example-input pre {
+    color: var(--code-text);
+}
+
 /* --- RESZPONZIVITÁS --- */
 @media (max-width: 900px) {
 
