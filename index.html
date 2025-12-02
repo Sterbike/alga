@@ -15,7 +15,6 @@
 </header>
 
 <main class="showcase-grid">
-
     <div class="code-card">
         <div class="card-content-wrapper">
 
@@ -94,7 +93,7 @@ print(*(elfogadott_fogadok))
             </div>
 
             <div class="explanation-section">
-                <h3 class="explanation-title">Megoldás Összefoglalása (Fogadók)</h3>
+                <h3 class="explanation-title">Megoldás Összefoglalása</h3>
                 <p>
                     Ez a probléma egy klasszikus <strong>dinamikus programozási (DP)</strong> feladat, amely a <strong>legrövidebb útvonal</strong> megtalálására vezethető vissza egy implicit, irányított, körmentes gráfban (DAG). A cél a legkisebb összköltséggel járó útvonal megtalálása az <code>N</code>-edik fogadóig, feltéve, hogy két elfogadott fogadó indexe között legfeljebb <code>K</code> a különbség.
                 </p>
@@ -127,7 +126,6 @@ print(*(elfogadott_fogadok))
 
         </div>
     </div>
-
     <div class="code-card">
         <div class="card-content-wrapper">
 
@@ -211,7 +209,7 @@ for i in range(1, N+1):
             </div>
 
             <div class="explanation-section">
-                <h3 class="explanation-title">Megoldás Összefoglalása (Hírlánc)</h3>
+                <h3 class="explanation-title">Megoldás Összefoglalása</h3>
                 <p>
                     Ez a probléma <strong>gráfelméleti</strong> megközelítést igényel, ahol a megoldás a <strong>topologikus rendezés (Kahn algoritmusa)</strong> elvén alapul. Az embereket <strong>csúcsokként</strong>, a hír továbbadását pedig <strong>irányított élekként</strong> (A-ból B-be) kezeljük, ami egy <strong>irányított, körmentes gráfot (DAG)</strong> eredményez.
                 </p>
@@ -251,6 +249,100 @@ for i in range(1, N+1):
         </div>
     </div>
 
+    <div class="code-card">
+        <div class="card-content-wrapper">
+
+            <div class="code-section">
+                <div class="card-header-flex">
+                    <h2 class="card-title">Gazdaságos szomszédos állomáspárok</h2>
+                    <span class="card-type type-secv">Típus: Szekvenciális feldolgozás</span>
+                    <a href="https://drive.google.com/file/d/1j2ghA3JYSqhsIwBpfBsAyWQou4GgehQF/view?usp=sharing" target="_blank" class="pdf-button">
+                        Feladat Leírás (PDF)
+                    </a>
+                </div>
+                <div class="code-editor">
+                    <div class="editor-header">
+                        <span class="file-name">Gazdasagos_vonat.py</span>
+                        <div class="traffic-lights">
+                            <span class="dot red"></span>
+                            <span class="dot yellow"></span>
+                            <span class="dot green"></span>
+                        </div>
+                    </div>
+                    <pre class="code-content"><code class="language-python">
+N = int(input())
+K, M = map(int, input().split())
+
+data = [list(map(int, input().split())) for _ in range(N)]
+utasok = 0
+gazdasagos = 0
+
+for i in range(N-1):
+    le, fel = data[i]
+    print(le, fel)
+    utasok -= le
+    utasok += fel
+
+    bevetel = utasok * K
+
+    if bevetel > M:
+        gazdasagos += 1
+
+print(gazdasagos)
+
+                    </code></pre>
+                </div>
+
+
+            </div>
+
+            <div class="explanation-section">
+                <h3 class="explanation-title">Megoldás Összefoglalása</h3>
+                <p>
+                    Ez a probléma egyszerű <strong>szekvenciális feldolgozást</strong> igényel, ahol a kulcs a <strong>vonaton lévő utasok számának</strong> pontos nyomon követése állomásról állomásra. A megoldás egy <strong>iteratív</strong> megközelítésen alapul, és nem igényel komplex adatszerkezeteket, csak egy változó (<code>utasok</code>) frissítését.
+                </p>
+                <h4>Algoritmus Logikája:</h4>
+                <p>
+                    A vonat útját <code>N-1</code> szakaszra bonthatjuk. A ciklusban az <code>i</code>-edik állomás adatait feldolgozva határozzuk meg az <code>i</code>-edik és <code>i+1</code>-edik állomás közötti szakasz gazdaságosságát.
+                </p>
+                <ol>
+                    <li><strong>Utasszám frissítése:</strong> A ciklus minden lépésénél frissítjük az utasok számát:
+                        <br>
+                        utasok = utasok - leszállók + felszállók
+                    </li>
+                    <li><strong>Gazdaságossági feltétel:</strong> A szakasz akkor gazdaságos, ha a bevétel nagyobb, mint a kiadás:
+                        <br>
+                        bevétel = utasok * K
+                        <br>
+                        feltétel: bevétel &gt; M
+                    </li>
+                </ol>
+                <h4>Komplexitás:</h4>
+                <p>
+                    A megoldás komplexitása <strong>O(N)</strong>, mivel a bemeneti adatok beolvasása és a ciklus lineáris időben fut az állomások számával arányosan.
+                </p>
+                <h4>Példa Input</h4>
+                <div class="example-input">
+        <pre>6
+100 1000
+0 15
+10 30
+0 32
+48 0
+19 26
+26 0</pre>
+                </div>
+                <h4>Kulcsfogalmak:</h4>
+                <ul>
+                    <li><strong>Szekvenciális feldolgozás</strong></li>
+                    <li>Utasszám (state) követése</li>
+                    <li>Bevétel (utasok * K) és kiadás (M) összehasonlítása</li>
+                </ul>
+            </div>
+
+
+        </div>
+    </div>
 </main>
 
 </body>

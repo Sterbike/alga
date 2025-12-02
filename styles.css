@@ -10,8 +10,8 @@
     --shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
 
     /* Típus Színek */
-    --type-dp-color: #e74c3c; /* Piros a DP-hez */
-    --type-graph-color: #2ecc71; /* Zöld a Gráfokhoz */
+    --type-hard-color: #e74c3c;
+    --type-easy-color: #2ecc71;
     --type-web-color: #2ecc71;
     --type-db-color: #f39c12;
 }
@@ -118,10 +118,13 @@ body {
 }
 
 .type-dp {
-    background-color: var(--type-dp-color);
+    background-color: var(--type-hard-color);
 }
 .type-graph {
-    background-color: var(--type-graph-color);
+    background-color: var(--type-hard-color);
+}
+.type-secv {
+    background-color: var(--type-easy-color);
 }
 
 .pdf-button {
