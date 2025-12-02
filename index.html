@@ -17,23 +17,26 @@
 <main class="showcase-grid">
 
     <div class="code-card">
-        <div class="card-header-flex">
-            <h2 class="card-title">Fogadók</h2>
-            <a href="https://drive.google.com/file/d/1J_DEdapItR-sA5tCxgkbykh2Y9ctKn6_/view?usp=sharing" target="_blank" class="pdf-button">
-                Feladat Leírás (PDF)
-            </a>
-            <span class="card-type type-dp">Típus: Dinamikus Programozás</span>
-        </div>
-        <div class="code-editor">
-            <div class="editor-header">
-                <span class="file-name">Dinamikus_fogadok.py</span>
-                <div class="traffic-lights">
-                    <span class="dot red"></span>
-                    <span class="dot yellow"></span>
-                    <span class="dot green"></span>
+        <div class="card-content-wrapper">
+
+            <div class="code-section">
+                <div class="card-header-flex">
+                    <h2 class="card-title">Fogadók</h2>
+                    <span class="card-type type-dp">Típus: Dinamikus Programozás</span>
+                    <a href="https://drive.google.com/file/d/1J_DEdapItR-sA5tCxgkbykh2Y9ctKn6_/view?usp=sharing" target="_blank" class="pdf-button">
+                        Feladat Leírás (PDF)
+                    </a>
                 </div>
-            </div>
-            <pre class="code-content"><code class="language-python">
+                <div class="code-editor">
+                    <div class="editor-header">
+                        <span class="file-name">Dinamikus_fogadok.py</span>
+                        <div class="traffic-lights">
+                            <span class="dot red"></span>
+                            <span class="dot yellow"></span>
+                            <span class="dot green"></span>
+                        </div>
+                    </div>
+                    <pre class="code-content"><code class="language-python">
 import sys
 
 try:
@@ -84,15 +87,145 @@ elfogadott_fogadok.reverse()
 
 print(minimalis_fizetendo)
 print(*(elfogadott_fogadok))
-</code></pre>
+                    </code></pre>
+                </div>
+            </div>
+
+            <div class="explanation-section">
+                <h3 class="explanation-title">Megoldás Összefoglalása (Fogadók)</h3>
+                <p>
+                    Ez a probléma egy klasszikus <strong>dinamikus programozási (DP)</strong> feladat, amely a <strong>legrövidebb útvonal</strong> megtalálására vezethető vissza egy implicit, irányított, körmentes gráfban (DAG). A cél a legkisebb összköltséggel járó útvonal megtalálása az <code>N</code>-edik fogadóig, feltéve, hogy két elfogadott fogadó indexe között legfeljebb <code>K</code> a különbség.
+                </p>
+                <h4>DP Állapot és Átmenet:</h4>
+                <p>
+                    A <code>DP[i]</code> tárolja a <strong>minimális fizetendő összeget</strong> ahhoz, hogy az <strong><code>i</code>-edik</strong> fogadó legyen az utolsó elfogadott fogadó. A rekurziós szabály a következő:
+                    <br>
+                    <code>DP[i] = fizetesi_osszegek[i] + min(DP[j])</code>
+                    <br>
+                    ahol <code>j</code> az <code>i</code> előtti utolsó, megengedett fogadó, azaz <code>i - K <= j < i</code>.
+                </p>
+                <h4>Komplexitás és Rekonstrukció:</h4>
+                <p>
+                    A megoldás komplexitása <code>O(N * K)</code>, mivel minden fogadóhoz (<code>N</code>) <code>K</code> lehetséges előző fogadót ellenőrzünk. Az útvonalat a <strong><code>PREV</code></strong> tömb segítségével rekonstruáljuk, amely tárolja az optimális átmenetet biztosító előző fogadó indexét.
+                </p>
+                <h4>Kulcsfogalmak:</h4>
+                <ul>
+                    <li><strong>Dinamikus Programozás (<code>DP[i]</code>)</strong></li>
+                    <li><strong>Leghosszabb/Legrövidebb útvonal DAG-ban</strong></li>
+                    <li><strong>Útvonal rekonstrukció (<code>PREV</code> tömb)</strong></li>
+                </ul>
+            </div>
+
         </div>
-
     </div>
-    
 
+    <div class="code-card">
+        <div class="card-content-wrapper">
+
+            <div class="code-section">
+                <div class="card-header-flex">
+                    <h2 class="card-title">Hírlánc</h2>
+                    <span class="card-type type-graph">Típus: Gráfok</span>
+                    <a href="https://drive.google.com/file/d/1tFSxogHcoebj_REkKZodLDKT7KHaqFKP/view?usp=sharing" target="_blank" class="pdf-button">
+                        Feladat Leírás (PDF)
+                    </a>
+                </div>
+                <div class="code-editor">
+                    <div class="editor-header">
+                        <span class="file-name">Graf_hirek.py</span>
+                        <div class="traffic-lights">
+                            <span class="dot red"></span>
+                            <span class="dot yellow"></span>
+                            <span class="dot green"></span>
+                        </div>
+                    </div>
+                    <pre class="code-content"><code class="language-python">
+from collections import defaultdict, deque
+import sys
+
+input = sys.stdin.readline
+
+N, M, K = map(int, input().split())
+
+graf = [[] for _ in range(N+1)]
+bejovo_elek = [0]*(N+1)
+
+for _ in range(M):
+    A, B = map(int, input().split())
+    graf[A].append(B)
+    bejovo_elek[B] += 1
+
+igaz_hirek = [None]*(N+1)
+for _ in range(K):
+    p, msg = input().split()
+    p = int(p)
+    igaz_hirek[p] = msg
+
+beerkezett_hirek = [defaultdict(int) for _ in range(N+1)]
+sor = deque()
+
+for i in range(1, N+1):
+    if bejovo_elek[i] == 0:
+        sor.append(i)
+
+while sor:
+    u = sor.popleft()
+    if beerkezett_hirek[u]:
+        darab = beerkezett_hirek[u].values()
+        legtobb_darab = max(darab)
+
+        talalatok = []
+        for h, c in beerkezett_hirek[u].items():
+            if c == legtobb_darab:
+                talalatok.append(h)
+
+        if len(talalatok) == 1:
+            igaz_hirek[u] = talalatok[0]
+        else:
+            igaz_hirek[u] = None
+
+    if igaz_hirek[u] is not None:
+        for v in graf[u]:
+            beerkezett_hirek[v][igaz_hirek[u]] += 1
+
+    for i in graf[u]:
+        bejovo_elek[i] -= 1
+        if bejovo_elek[i] == 0:
+            sor.append(i)
+
+for i in range(1, N+1):
+    print(igaz_hirek[i] if igaz_hirek[i] is not None else "NINCS")
+                    </code></pre>
+                </div>
+            </div>
+
+            <div class="explanation-section">
+                <h3 class="explanation-title">Megoldás Összefoglalása (Hírlánc)</h3>
+                <p>
+                    Ez a probléma <strong>gráfelméleti</strong> megközelítést igényel, ahol a megoldás a <strong>topologikus rendezés (Kahn algoritmusa)</strong> elvén alapul. Az embereket <strong>csúcsokként</strong>, a hír továbbadását pedig <strong>irányított élekként</strong> (A-ból B-be) kezeljük, ami egy <strong>irányított, körmentes gráfot (DAG)</strong> eredményez.
+                </p>
+                <h4>Algoritmus és Hírterjedés:</h4>
+                <p>
+                    A <strong>BFS-alapú topologikus rendezés</strong> biztosítja, hogy a csúcsokat abban a sorrendben dolgozzuk fel, ahogy a hírek valójában terjednek. A folyamat a nulla <strong>bejövő éllel</strong> rendelkező csúcsoknál (hírforrásoknál) kezdődik.
+                    Amikor egy <strong><code>u</code> csúcsot</strong> (azaz az aktuálisan feldolgozott embert) feldolgozunk, az "igaz hírét" a hozzá beérkezett hírek közül a <strong>leggyakoribbnak</strong> választjuk. Ha több hír is van, ami leggyakrabban érkezett be, akkor az "igaz hír" <em>None</em>.
+                </p>
+                <h4>Adatszerkezetek:</h4>
+                <p>
+                    A <strong><code>bejovo_elek</code></strong> tömb számolja, hány feldolgozatlan forrásból vár még hír egy csúcs. A <strong><code>beerkezett_hirek</code></strong> struktúra tárolja az egyes csúcsokhoz beérkezett híreket és azok gyakoriságát, ami kulcsfontosságú az igaz hír meghatározásához.
+                </p>
+                <h4>Kulcsfogalmak:</h4>
+                <ul>
+                    <li><strong>Topologikus rendezés</strong></li>
+                    <li><strong>Kahn algoritmusa</strong></li>
+                    <li><strong>Irányított, körmentes gráf (DAG)</strong></li>
+                    <li><strong>Bejövő élek számlálása</strong></li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
 
 </main>
 
 </body>
-
 </html>

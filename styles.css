@@ -1,4 +1,4 @@
-/* Globális stílusok és alap beállítások (Az előző kódból) */
+/* Globális stílusok és alap beállítások */
 :root {
     --bg-color: #f4f7f6; /* Világos háttér */
     --primary-color: #3498db; /* Kék hangsúlyos szín */
@@ -9,10 +9,11 @@
     --border-radius: 12px;
     --shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
 
-    /* ÚJ Típus Színek */
+    /* Típus Színek */
     --type-dp-color: #e74c3c; /* Piros a DP-hez */
-    --type-web-color: #2ecc71; /* Zöld a Web-hez */
-    --type-db-color: #f39c12; /* Narancs az Adatbázishoz */
+    --type-graph-color: #2ecc71; /* Zöld a Gráfokhoz */
+    --type-web-color: #2ecc71;
+    --type-db-color: #f39c12;
 }
 
 * {
@@ -28,6 +29,8 @@ body {
     line-height: 1.6;
     padding: 20px;
 }
+
+/* --- HEADEREK --- */
 
 .header {
     text-align: center;
@@ -46,23 +49,22 @@ body {
     color: #7f8c8d;
 }
 
-/* MÓDOSÍTÁS: A kártyák egy oszlopban jelennek meg, középre igazítva */
+/* --- KÁRTYA CONTAINER --- */
+
 .showcase-grid {
     display: flex;
     flex-direction: column; /* Egymás alá sorolás */
     gap: 30px;
-    width: 80%;
+    width: 90%; /* Kicsit szélesebb a jobb elrendezés érdekében */
+    max-width: 1200px;
     margin: 0 auto;
 }
 
-/* Kód Kártya Stílusok (maradt) */
+/* --- KÓD KÁRTYA STÍLUSOK (ALAP) --- */
 .code-card {
     background-color: var(--card-bg);
     border-radius: var(--border-radius);
     box-shadow: var(--shadow);
-    padding: 25px;
-    display: flex;
-    flex-direction: column;
     transition: transform 0.3s ease-in-out;
 }
 
@@ -71,52 +73,78 @@ body {
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
 }
 
-/* ÚJ: Fejléc a címmel és a típussal egy sorban */
+/* --- ÚJ: KÉT OSZLOPOS ELRENDEZÉS --- */
+.card-content-wrapper {
+    display: flex;
+    min-height: 450px; /* Alapmagasság a szép elrendezéshez */
+}
+
+/* A kód és a magyarázat egyenletes 50/50 felosztása */
+.code-section, .explanation-section {
+    flex: 1; /* Fél-fél szélesség */
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+}
+
+.code-section {
+    border-right: 1px solid #ecf0f1; /* Elválasztó vonal */
+}
+
+/* --- KÓD RÉSZ SPECIFIKUS STÍLUSOK --- */
+
 .card-header-flex {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
+    gap: 15px; /* Hely az elemek között */
+    flex-wrap: wrap; /* Törés kisebb képernyőn */
     margin-bottom: 15px;
 }
 
 .card-title {
     font-size: 1.4rem;
     color: var(--text-color);
-    font-weight: 600;
+    font-weight: 700;
 }
 
-/* ÚJ: Típus/Nehézség mező stílusa */
 .card-type {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     font-weight: 700;
-    padding: 5px 10px;
+    padding: 4px 8px;
     border-radius: 4px;
-    color: var(--card-bg); /* Fehér szöveg a jelvényen */
+    color: var(--card-bg);
     text-transform: uppercase;
 }
 
-/* Típusspecifikus háttérszínek */
 .type-dp {
-    background-color: var(--type-dp-color); /* Dinamikus Programozás */
+    background-color: var(--type-dp-color);
+}
+.type-graph {
+    background-color: var(--type-graph-color);
 }
 
-.type-web {
-    background-color: var(--type-web-color); /* Webfejlesztés */
+.pdf-button {
+    display: inline-block;
+    background-color: var(--primary-color);
+    color: var(--card-bg);
+    text-decoration: none;
+    padding: 8px 15px; /* Kisebb gomb a flexibilisebb elrendezéshez */
+    border-radius: 6px;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
 }
 
-.type-db {
-    background-color: var(--type-db-color); /* Adatbázis */
+.pdf-button:hover {
+    background-color: #2980b9;
 }
-
-
-/* ... A többi stílus változatlan az előző válaszból ... */
 
 .code-editor {
     background-color: var(--code-bg);
     border-radius: 8px;
     overflow: hidden;
-    margin-bottom: 20px;
-    flex-grow: 1;
+    margin-top: 10px;
+    flex-grow: 1; /* Kitölti a rendelkezésre álló helyet */
 }
 
 .editor-header {
@@ -125,8 +153,6 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
 }
 
 .file-name {
@@ -158,40 +184,84 @@ body {
     white-space: pre;
 }
 
-/* PDF Gomb Stílusok */
-.pdf-button {
-    display: inline-block;
-    background-color: var(--primary-color);
-    color: var(--card-bg);
-    text-decoration: none;
-    padding: 12px 20px;
-    border-radius: 6px;
+
+/* --- MAGYARÁZAT RÉSZ SPECIFIKUS STÍLUSOK --- */
+
+.explanation-section {
+    padding-left: 35px; /* Kicsit nagyobb belső tér a jobb olvashatóságért */
+}
+
+.explanation-title {
+    font-size: 1.5rem;
+    color: var(--primary-color);
+    margin-bottom: 15px;
+    border-bottom: 2px solid #ecf0f1;
+    padding-bottom: 5px;
+}
+
+.explanation-section h4 {
+    font-size: 1.1rem;
+    color: var(--text-color);
+    margin-top: 20px;
+    margin-bottom: 8px;
+    font-weight: 700;
+}
+
+.explanation-section p {
+    margin-bottom: 15px;
+    font-size: 0.95rem;
+    text-align: justify;
+}
+
+.explanation-section ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.explanation-section ul li {
+    background: #ecf0f1; /* Világosszürke háttér a listaelemeknek */
+    margin-bottom: 5px;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    font-family: 'Consolas', monospace; /* Monospace font a kulcsfogalmakhoz */
+    color: #34495e;
     font-weight: 600;
-    text-align: center;
-    transition: background-color 0.3s ease, transform 0.1s;
-    margin-top: auto;
-    border: none;
-    cursor: pointer;
 }
 
-.pdf-button:hover {
-    background-color: #2980b9;
-    transform: translateY(-2px);
-}
-
-/* Reszponzivitás */
+/* --- RESZPONZIVITÁS --- */
 @media (max-width: 900px) {
-    body {
-        padding: 10px;
+
+    .showcase-grid {
+        width: 100%;
+        gap: 20px;
     }
 
-    .header {
-        padding: 20px 10px;
+    .card-content-wrapper {
+        flex-direction: column; /* Egymás alá sorolás 900px alatt */
+        min-height: auto;
+    }
+
+    .code-section, .explanation-section {
+        padding: 20px;
+    }
+
+    .code-section {
+        border-right: none;
+        border-bottom: 1px solid #ecf0f1; /* Elválasztó vonal alulra */
+    }
+
+    .explanation-section {
+        padding-left: 20px;
     }
 
     .card-header-flex {
         flex-direction: column;
         align-items: flex-start;
-        gap: 8px;
+        gap: 10px;
+    }
+
+    .pdf-button {
+        align-self: flex-start;
     }
 }
